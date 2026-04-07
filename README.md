@@ -88,6 +88,10 @@ Der Poller nutzt diese Einstellung je Konto beim Verbindungsaufbau.
 - vorbereitete parser_rules-Basis für eigene Regeln
 - Migrations + Demo-Seeder
 
+## Deployment
+
+- Docker-Host Anleitung: `docs/DOCKERHOST_DEPLOY.md`
+
 ## Hinweise
 
 - Primärer Entwicklungsmodus ist Docker Compose.
