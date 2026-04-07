@@ -107,3 +107,15 @@ Docker/Compose ist nicht installiert oder nicht im PATH.
 - DB-Port nicht öffentlich exponieren
 - Backups für DB-Volume
 - Monitoring/Alerting ergänzen
+
+
+## Optional: produktionsnahe Compose-Variante
+
+```bash
+cp .env.prod.example .env.prod
+# .env.prod anpassen
+docker compose -f compose.prod.yaml up -d --build
+docker compose -f compose.prod.yaml exec app php artisan migrate --force
+```
+
+Details: `docs/PRODUCTION_READINESS.md`

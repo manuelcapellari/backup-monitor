@@ -91,6 +91,16 @@ Der Poller nutzt diese Einstellung je Konto beim Verbindungsaufbau.
 ## Deployment
 
 - Docker-Host Anleitung: `docs/DOCKERHOST_DEPLOY.md`
+- Produktive Betriebsnotizen: `docs/PRODUCTION_READINESS.md`
+
+### Produktive Compose starten
+
+```bash
+cp .env.prod.example .env.prod
+# .env.prod anpassen
+docker compose -f compose.prod.yaml up -d --build
+docker compose -f compose.prod.yaml exec app php artisan migrate --force
+```
 
 ## Hinweise
 
