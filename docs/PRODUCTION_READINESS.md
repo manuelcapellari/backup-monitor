@@ -2,6 +2,9 @@
 
 ## Kurzantwort
 
+- **Ja**, die aktuelle Version ist **technisch lauffähig** und kann in internen Umgebungen produktiv genutzt werden.
+- **Nein**, sie ist noch **kein vollständig gehärtetes Enterprise-Produkt** (z. B. Compliance/HA/umfangreiche Tests).
+
 
 - **Ja**, die aktuelle Version ist **technisch lauffähig** und kann in internen Umgebungen produktiv genutzt werden.
 - **Nein**, sie ist noch **kein vollständig gehärtetes Enterprise-Produkt** (z. B. Compliance/HA/umfangreiche Tests).
@@ -18,6 +21,7 @@
 - `restart: always`
 
 Für euren rein internen Einsatz ist das ein passender Startpunkt.
+
 
 Sie ist für produktionsnahe Deployments gedacht, ersetzt aber keine vollständige Sicherheits-/Betriebshärtung.
 
@@ -36,7 +40,6 @@ Sie ist für produktionsnahe Deployments gedacht, ersetzt aber keine vollständi
 3. Testabdeckung erhöhen (Unit/Feature + Smoke-Tests)
 4. Secrets-Handling verbessern (z. B. Docker secrets/Vault)
 5. Rollen/Rechte und Audit-Policies feinziehen
-=======
 
 ## Was vor „echter Produktion“ empfohlen ist
 
@@ -63,7 +66,6 @@ docker compose -f compose.prod.yaml -f compose.data-local.yaml exec app php arti
 
 
 Hinweis: `compose.data-local.yaml` bindet MySQL-Daten unter `./data/mysql` ein.
-=======
 
 docker compose -f compose.prod.yaml up -d --build
 docker compose -f compose.prod.yaml exec app php artisan migrate --force
