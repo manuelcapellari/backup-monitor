@@ -91,7 +91,11 @@ Der Poller nutzt diese Einstellung je Konto beim Verbindungsaufbau.
 ## Deployment
 
 - Docker-Host Anleitung: `docs/DOCKERHOST_DEPLOY.md`
+
 - Produktive Betriebsnotizen: `docs/PRODUCTION_READINESS.md` (inkl. Hinweis für rein internen Betrieb ohne Reverse Proxy)
+
+- Produktive Betriebsnotizen: `docs/PRODUCTION_READINESS.md`
+
 
 ### Produktive Compose starten
 
@@ -101,6 +105,7 @@ cp .env.prod.example .env.prod
 docker compose -f compose.prod.yaml up -d --build
 docker compose -f compose.prod.yaml exec app php artisan migrate --force
 ```
+
 
 ### Komplett-Installer (Git -> lauffähig)
 
@@ -118,7 +123,6 @@ Dieser Installer:
 - initialisiert Laravel + Overlay
 - startet `compose.prod.yaml`
 - nutzt `compose.data-local.yaml`, damit MySQL-Daten in `./data/mysql` liegen
-
 
 ## Hinweise
 
@@ -150,6 +154,7 @@ Nächster Ausbauschritt:
 Mailpasswörter werden beim Speichern verschlüsselt abgelegt und zur Laufzeit nur für den Verbindungsaufbau entschlüsselt.
 
 
+
 ## Optional: interner Zugriffsschutz
 
 Wenn ihr das Tool intern ohne Reverse Proxy betreibt, könnt ihr den Webzugriff per HTTP Basic Auth absichern:
@@ -160,3 +165,4 @@ INTERNAL_AUTH_PASSWORD=<starkes_passwort>
 ```
 
 Diese Variablen sind in `.env.docker.example` und `.env.prod.example` vorgesehen.
+
