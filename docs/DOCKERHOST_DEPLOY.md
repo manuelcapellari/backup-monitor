@@ -17,6 +17,7 @@ git clone <DEIN_REPO_URL> backup-monitor
 cd backup-monitor
 ```
 
+
 ## Alternative: Komplett-Installer
 
 ```bash
@@ -24,6 +25,8 @@ cd backup-monitor
 ```
 
 Der Installer richtet automatisch alles ein und speichert DB-Daten in `./data/mysql`.
+
+
 
 ## 2) Env-Datei anlegen
 
@@ -37,6 +40,11 @@ Danach `.env.docker` anpassen (wichtig):
 - DB-Werte prüfen
 - Mail-Werte prüfen
 - optional interner Zugriffsschutz setzen: `INTERNAL_AUTH_USER` / `INTERNAL_AUTH_PASSWORD`
+
+
+
+- optional interner Zugriffsschutz setzen: `INTERNAL_AUTH_USER` / `INTERNAL_AUTH_PASSWORD`
+
 
 ## 3) Laravel-App (im `app/`-Ordner) initialisieren
 
@@ -112,6 +120,14 @@ Docker/Compose ist nicht installiert oder nicht im PATH.
 
 Für rein internen Betrieb ist kein Reverse Proxy zwingend nötig.
 
+
+
+Für rein internen Betrieb ist kein Reverse Proxy zwingend nötig.
+
+
+- Reverse Proxy (Nginx/Caddy/Traefik) vor Port 8000
+- TLS-Zertifikat (Let's Encrypt)
+
 - Mailpit deaktivieren
 - DB-Port nicht öffentlich exponieren
 - Backups für DB-Volume
@@ -125,6 +141,14 @@ cp .env.prod.example .env.prod
 # .env.prod anpassen
 docker compose -f compose.prod.yaml -f compose.data-local.yaml up -d --build
 docker compose -f compose.prod.yaml -f compose.data-local.yaml exec app php artisan migrate --force
+
+
+docker compose -f compose.prod.yaml -f compose.data-local.yaml up -d --build
+docker compose -f compose.prod.yaml -f compose.data-local.yaml exec app php artisan migrate --force
+
+docker compose -f compose.prod.yaml up -d --build
+docker compose -f compose.prod.yaml exec app php artisan migrate --force
+
 ```
 
 Details: `docs/PRODUCTION_READINESS.md`
