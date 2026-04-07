@@ -1,0 +1,114 @@
+project:
+  name: backup-mail-monitor
+  summary: >-
+    Mandantenfähiges Webtool zur Verarbeitung von Backup-Statusmails (IMAP/POP3),
+    inkl. Dashboard, Verlauf pro Computer, Aliasverwaltung, Regel-basiertem Parsing,
+    Originalmail-Einsicht und Admin-Konfiguration via WebGUI.
+  current_phase: "phase_1_mvp"
+
+product_goals:
+  - dashboard_computer_status_ampel
+  - detailseite_mit_historie
+  - computer_aliases
+  - mandantenfaehigkeit_auto_und_manuell
+  - mehrere_mailkonten_imap_pop3
+  - super_admin_mode
+  - webgui_fuer_alle_einstellungen
+  - regelbasiertes_anlernen
+  - kategorie_nicht_zuordenbar
+  - originalmail_ansicht
+
+definition_of_done_mvp:
+  - "IMAP-Konto kann konfiguriert und abgefragt werden"
+  - "Rohmails werden gespeichert und dedupliziert"
+  - "Mails werden in Backup-Ereignisse normalisiert"
+  - "Dashboard zeigt letzten Status je Computer"
+  - "Computerdetail zeigt Historie"
+  - "Originalmail ist pro Ereignis einsehbar"
+  - "Nicht zuordenbare Mails werden getrennt geführt"
+
+tech_stack:
+  backend: "Laravel (Blade, optional Livewire)"
+  database: "MySQL 8.x"
+  queue: "Laravel Queue (database, später optional Redis)"
+  scheduler: "Laravel Scheduler"
+  mail_ingestion: "IMAP-first, POP3 fallback"
+  deployment_primary: "Docker Compose"
+  deployment_secondary: "Native VM (optional)"
+
+security:
+  auth:
+    - email_password_login
+    - forgot_password
+    - email_verification
+    - totp_2fa
+    - email_otp_optional
+  requirements:
+    - rate_limiting_for_login_otp
+    - audit_log_for_security_events
+
+domain_model:
+  entities:
+    - users
+    - tenants
+    - mail_accounts
+    - tenant_assignment_rules
+    - computers
+    - computer_aliases
+    - raw_emails
+    - email_classifications
+    - backup_events
+    - parser_profiles
+    - parser_rules
+    - manual_overrides
+    - audit_logs
+  status_categories:
+    - backup_success
+    - backup_warning
+    - backup_error
+    - backup_info
+    - other_unmatched
+
+original_email_view:
+  enabled: true
+  include:
+    - headers
+    - message_id
+    - plain_text
+    - html_body_sanitized
+    - attachment_metadata
+  link_from:
+    - backup_event
+    - classification
+
+implementation_path:
+  phase_1:
+    - docker_environment
+    - auth_super_admin
+    - tenant_and_mailaccount_crud
+    - imap_polling_job
+    - classification_baseline
+    - dashboard_and_computer_detail
+    - original_email_view
+  phase_2:
+    - parser_rule_editor
+    - reprocessing_pipeline
+    - robust_dedup
+    - pop3_adapter
+  phase_3:
+    - tenant_admin_roles
+    - notifications
+    - reporting_export
+    - observability
+
+known_risks:
+  - inconsistent_vendor_mail_formats
+  - duplicate_or_replayed_messages
+  - ambiguous_hostnames
+  - incorrect_tenant_assignment
+  - pop3_limitations
+
+notes_for_next_chatgpt_session:
+  - "Nutze diese YAML als Source of Truth für Scope und Architektur."
+  - "Vor jeder Erweiterung: MVP-Grenzen prüfen (keine Overengineering-Schritte)."
+  - "Originalmail-Einsicht ist Pflichtbestandteil, nicht optional."
